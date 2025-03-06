@@ -2,65 +2,60 @@ import rclpy
 from rclpy.node import Node
 from geometry_msgs.msg import Twist
 from sensor_msgs.msg import LaserScan
-from robot_control.srv import ControlRobot
+from std_msgs.msg import String  # ใช้ข้อความแทน Service
 import math
 
 class ServiceNode(Node):
     def __init__(self):
         super().__init__('service_node')
         
-        self.cli = self.create_client(ControlRobot, 'control_robot_service')
-        self.req = ControlRobot.Request()
+        # Subscriber รับคำสั่งจาก server_node
+        self.command_sub = self.create_subscription(
+            String,
+            '/robot_command',
+            self.command_callback,
+            10)
         
-        # ใช้ flag แทน wait_for_service() เพื่อป้องกันบล็อกโปรแกรม
-        self.service_available = False  
-        
-        # ตรวจสอบ service ทุกๆ 2 วินาที
-        self.create_timer(2.0, self.check_service_availability)
-
-        self.subscription = self.create_subscription(
+        # Subscriber อ่านค่าจาก LiDAR
+        self.lidar_sub = self.create_subscription(
             LaserScan,
             '/rp_scan',
             self.rp_lidar_callback,
             10)
-        
+
+        # Publisher ควบคุมการเคลื่อนที่
         self.cmd_vel_pub = self.create_publisher(Twist, '/cmd_vel', 10)
         self.twist = Twist()
         self.Back_block = True
 
-    def check_service_availability(self):
-        """ ตรวจสอบว่าบริการ server_node ใช้งานได้หรือไม่ โดยไม่บล็อกโปรแกรม """
-        if not self.service_available:
-            if self.cli.service_is_ready():
-                self.get_logger().info("✅ Server service is now available!")
-                self.service_available = True
-            else:
-                self.get_logger().warn("Waiting for service...")
+    def command_callback(self, msg):
+        """ รับคำสั่งจาก server_node และควบคุมหุ่นยนต์ """
+        if msg.data == "stop":
+            self.get_logger().warn("❌ STOP command received! Halting robot.")
+            self.twist = Twist()
+            self.cmd_vel_pub.publish(self.twist)
 
     def rp_lidar_callback(self, msg):
-        """ ค้นหาอุปสรรคในแต่ละทิศและเลือกทิศที่มีอุปสรรคใกล้ที่สุด """
-        self.call_service()
-        
+        """ ค้นหาอุปสรรคในแต่ละทิศทาง """
         # รีเซ็ตคำสั่งควบคุม
         self.twist = Twist()
 
-        # กำหนดค่าเริ่มต้นของระยะขั้นต่ำสำหรับแต่ละทิศ
+        # กำหนดค่าเริ่มต้นของระยะขั้นต่ำ
         min_forward = float('inf')
         min_ccw = float('inf')
         min_cw = float('inf')
         min_back = float('inf')
 
         # พารามิเตอร์การตรวจจับ
-        max_dist = 0.24  
-        active_threshold = 0.25  
+        max_dist = 0.24
+        active_threshold = 0.25
         max_linear_speed = 0.24
         max_angular_speed = 0.7
 
-        # วนลูปตรวจสอบข้อมูล LaserScan ทั้งหมด
+        # ตรวจสอบข้อมูล LiDAR
         for i, distance in enumerate(msg.ranges):
             if math.isinf(distance) or math.isnan(distance):
                 continue
-
             if distance > max_dist:
                 continue
 
@@ -69,20 +64,16 @@ class ServiceNode(Node):
 
             # Forward: 175° - 185°
             if 175 <= angle_degree < 185:
-                if distance < min_forward:
-                    min_forward = distance
+                min_forward = min(min_forward, distance)
             # CCW: 265° - 275°
             elif 265 <= angle_degree < 275:
-                if distance < min_ccw:
-                    min_ccw = distance
+                min_ccw = min(min_ccw, distance)
             # CW: 85° - 95°
             elif 85 <= angle_degree < 95:
-                if distance < min_cw:
-                    min_cw = distance
+                min_cw = min(min_cw, distance)
             # Backward: 355°-360° หรือ 0°-5°
             elif ((355 <= angle_degree < 360) or (0 <= angle_degree < 5)) and self.Back_block:
-                if distance < min_back:
-                    min_back = distance
+                min_back = min(min_back, distance)
 
         # หาอุปสรรคที่ใกล้ที่สุด
         region_distances = {
@@ -100,7 +91,7 @@ class ServiceNode(Node):
                 selected_distance = dist
                 selected_region = region
 
-        # หากไม่มีอุปสรรคที่ใกล้เกิน threshold ให้หยุดหุ่นยนต์
+        # ถ้าไม่มีอุปสรรคที่ใกล้เกิน threshold → หยุดหุ่นยนต์
         if selected_region is None:
             self.twist.linear.x = 0.0
             self.twist.angular.z = 0.0
@@ -110,43 +101,19 @@ class ServiceNode(Node):
         # คำนวณความเร็วตามทิศที่เลือก
         if selected_region == 'forward':
             self.twist.linear.x = max_linear_speed * (1 - (selected_distance / active_threshold))
-            self.twist.angular.z = 0.0
         elif selected_region == 'ccw':
-            self.twist.linear.x = 0.0
             self.twist.angular.z = max_angular_speed * (1 - (selected_distance / active_threshold))
         elif selected_region == 'cw':
-            self.twist.linear.x = 0.0
             self.twist.angular.z = -max_angular_speed * (1 - (selected_distance / active_threshold))
         elif selected_region == 'back':
             self.twist.linear.x = -max_linear_speed * (1 - (selected_distance / active_threshold))
-            self.twist.angular.z = 0.0
 
         # แสดงผลลัพธ์
         self.get_logger().info(
-            f"{selected_region} "
-            f"[{self.twist.linear.x:.2f} , {self.twist.angular.z:.2f}], Range:{selected_distance:.2f} m"
+            f"{selected_region} [{self.twist.linear.x:.2f} , {self.twist.angular.z:.2f}], Range:{selected_distance:.2f} m"
         )
 
         self.cmd_vel_pub.publish(self.twist)
-
-    def call_service(self):
-        """ เรียกใช้ Service เพื่อเช็คว่าหุ่นยนต์ควรหยุดหรือไม่ """
-        if not self.service_available:
-            return  # ไม่ทำอะไรถ้า Service ยังไม่พร้อม
-        
-        future = self.cli.call_async(self.req)
-        future.add_done_callback(self.handle_response)
-
-    def handle_response(self, future):
-        """ ตรวจสอบคำตอบจาก ServerNode และหยุดหุ่นยนต์หากจำเป็น """
-        try:
-            response = future.result()
-            if response.action == "stop":
-                self.get_logger().warn("❌ Server: Stop detected, halting robot!")
-                self.twist = Twist()
-                self.cmd_vel_pub.publish(self.twist)
-        except Exception as e:
-            self.get_logger().error(f"Service call failed: {e}")
 
 def main():
     rclpy.init()
