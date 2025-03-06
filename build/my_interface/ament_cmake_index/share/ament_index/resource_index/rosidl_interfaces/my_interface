@@ -1,4 +1,0 @@
-srv/StopRobot.idl
-srv/StopRobot.srv
-srv/StopRobot_Request.msg
-srv/StopRobot_Response.msg

@@ -1,1 +1,0 @@
-/home/ubuntu/650610832_final/build/my_interface/rosidl_cmake/srv/StopRobot_Response.msg

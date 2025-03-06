@@ -1,1 +1,0 @@
-/home/ubuntu/650610832_final/build/my_interface/rosidl_generator_cpp/my_interface/srv/stop_robot.hpp

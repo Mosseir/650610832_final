@@ -1,6 +1,0 @@
-{
-  "package_name": "my_interface",
-  "non_idl_tuples": [
-    "/home/ubuntu/650610832_final/src/my_interface:srv/StopRobot.srv"
-  ]
-}
