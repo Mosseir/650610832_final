@@ -1,0 +1,1 @@
+bool stop  # True = หยุด, False = ไม่หยุด

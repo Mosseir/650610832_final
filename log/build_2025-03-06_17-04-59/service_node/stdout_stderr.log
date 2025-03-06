@@ -1,0 +1,22 @@
+running develop
+running egg_info
+creating service_node.egg-info
+writing service_node.egg-info/PKG-INFO
+writing dependency_links to service_node.egg-info/dependency_links.txt
+writing entry points to service_node.egg-info/entry_points.txt
+writing requirements to service_node.egg-info/requires.txt
+writing top-level names to service_node.egg-info/top_level.txt
+writing manifest file 'service_node.egg-info/SOURCES.txt'
+reading manifest file 'service_node.egg-info/SOURCES.txt'
+writing manifest file 'service_node.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/ubuntu/650610832_final/install/service_node/lib/python3.10/site-packages/service-node.egg-link (link to .)
+Installing service_node script to /home/ubuntu/650610832_final/install/service_node/lib/service_node
+
+Installed /home/ubuntu/650610832_final/build/service_node
+running symlink_data
+creating /home/ubuntu/650610832_final/install/service_node/share/ament_index
+creating /home/ubuntu/650610832_final/install/service_node/share/ament_index/resource_index
+creating /home/ubuntu/650610832_final/install/service_node/share/ament_index/resource_index/packages
+symbolically linking /home/ubuntu/650610832_final/build/service_node/resource/service_node -> /home/ubuntu/650610832_final/install/service_node/share/ament_index/resource_index/packages
+symbolically linking /home/ubuntu/650610832_final/build/service_node/package.xml -> /home/ubuntu/650610832_final/install/service_node/share/service_node

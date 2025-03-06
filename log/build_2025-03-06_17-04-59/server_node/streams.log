@@ -1,0 +1,24 @@
+[0.705s] Invoking command in '/home/ubuntu/650610832_final/build/server_node': PYTHONPATH=/home/ubuntu/650610832_final/build/server_node/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ubuntu/650610832_final/install/server_node/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/ubuntu/650610832_final/build/server_node/build --no-deps symlink_data
+[0.855s] running develop
+[0.940s] running egg_info
+[0.940s] creating server_node.egg-info
+[0.940s] writing server_node.egg-info/PKG-INFO
+[0.940s] writing dependency_links to server_node.egg-info/dependency_links.txt
+[0.940s] writing entry points to server_node.egg-info/entry_points.txt
+[0.940s] writing requirements to server_node.egg-info/requires.txt
+[0.941s] writing top-level names to server_node.egg-info/top_level.txt
+[0.941s] writing manifest file 'server_node.egg-info/SOURCES.txt'
+[0.941s] reading manifest file 'server_node.egg-info/SOURCES.txt'
+[0.942s] writing manifest file 'server_node.egg-info/SOURCES.txt'
+[0.943s] running build_ext
+[0.943s] Creating /home/ubuntu/650610832_final/install/server_node/lib/python3.10/site-packages/server-node.egg-link (link to .)
+[0.943s] Installing server_node script to /home/ubuntu/650610832_final/install/server_node/lib/server_node
+[0.943s] 
+[0.944s] Installed /home/ubuntu/650610832_final/build/server_node
+[0.944s] running symlink_data
+[0.944s] creating /home/ubuntu/650610832_final/install/server_node/share/ament_index
+[0.944s] creating /home/ubuntu/650610832_final/install/server_node/share/ament_index/resource_index
+[0.944s] creating /home/ubuntu/650610832_final/install/server_node/share/ament_index/resource_index/packages
+[0.944s] symbolically linking /home/ubuntu/650610832_final/build/server_node/resource/server_node -> /home/ubuntu/650610832_final/install/server_node/share/ament_index/resource_index/packages
+[0.944s] symbolically linking /home/ubuntu/650610832_final/build/server_node/package.xml -> /home/ubuntu/650610832_final/install/server_node/share/server_node
+[0.962s] Invoked command in '/home/ubuntu/650610832_final/build/server_node' returned '0': PYTHONPATH=/home/ubuntu/650610832_final/build/server_node/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ubuntu/650610832_final/install/server_node/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/ubuntu/650610832_final/build/server_node/build --no-deps symlink_data

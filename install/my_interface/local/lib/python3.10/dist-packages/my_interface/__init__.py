@@ -1,0 +1,1 @@
+/home/ubuntu/650610832_final/build/my_interface/rosidl_generator_py/my_interface/__init__.py
