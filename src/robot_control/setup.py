@@ -19,9 +19,9 @@ setup(
     license='TODO: License declaration',
     tests_require=['pytest'],
     entry_points={
-        'console_scripts': [
-            'service_node = robot_control.service_node:main',
-            'server_node = robot_control.server_node:main',
-        ],
-    },
+    'console_scripts': [
+        'server_node = robot_control.server_node:main',
+        'service_node = robot_control.service_node:main',
+             ],
+        },
 )
