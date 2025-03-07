@@ -5,7 +5,8 @@ find_package(ament_cmake REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 find_package(rosidl_default_runtime REQUIRED)
 
-install(DIRECTORY launch/
+install(
+  DIRECTORY launch/
   DESTINATION share/${PROJECT_NAME}
 )
 

@@ -8,10 +8,15 @@ setup.py
 ../../build/robot_control/robot_control.egg-info/requires.txt
 ../../build/robot_control/robot_control.egg-info/top_level.txt
 ../../build/robot_control/robot_control.egg-info/zip-safe
+launch/robot_control_launch.py
 resource/robot_control
 robot_control/__init__.py
+robot_control/server_node copy.py
 robot_control/server_node.py
+robot_control/server_node_1.py
+robot_control/service_node copy.py
 robot_control/service_node.py
+robot_control/service_node_1.py
 test/test_copyright.py
 test/test_flake8.py
 test/test_pep257.py

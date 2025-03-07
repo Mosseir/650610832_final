@@ -1,45 +1,60 @@
 import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import LaserScan
-from std_msgs.msg import String #*********Using Normal String**************#
+from std_msgs.msg import String
 import math
+from rclpy.qos import QoSProfile, ReliabilityPolicy
 
 class LidarServiceNode(Node):
     def __init__(self):
         super().__init__('server_node')
-        
-        # Transform to publisher
+
+        # Publisher สำหรับส่งคำสั่งไปยัง /robot_command
         self.publisher = self.create_publisher(String, '/robot_command', 10)
 
-        # create Subscriber for data from LiDAR
+        # เปลี่ยน QoS เป็น BEST_EFFORT ให้ตรงกับ LiDAR
+        qos_profile = QoSProfile(reliability=ReliabilityPolicy.BEST_EFFORT, depth=10)
+
+        # Subscriber สำหรับรับข้อมูลจาก LiDAR
         self.subscription = self.create_subscription(
             LaserScan,
-            '/scan', 
+            '/scan',
             self.lidar_callback,
-            10)
-        
-        self.stop_threshold = 0.18  # stop range
+            qos_profile
+        )
+
+        self.stop_threshold = 0.16  # ระยะที่ต้องหยุด
+        self.obstacle_detected = False  # สถานะการตรวจจับสิ่งกีดขวาง
 
     def lidar_callback(self, msg):
-        """ ตรวจสอบว่ามีวัตถุใกล้เกินกำหนดหรือไม่ แล้วส่งคำสั่งผ่าน Topic """
+        """ ตรวจสอบข้อมูลจาก LiDAR และส่งคำสั่งเมื่อพบวัตถุใกล้เกินไป """
+        obstacle_detected = False  # เช็ควัตถุในรอบนี้
+
         for i, distance in enumerate(msg.ranges):
             if math.isinf(distance) or math.isnan(distance):
-                continue  # ข้ามค่าที่ผิดปกติ
-            
-            if distance < self.stop_threshold:  # Object Detection
+                continue  # ข้ามค่าที่ไม่ถูกต้อง
+
+            if distance < self.stop_threshold:
                 angle_radian = msg.angle_min + i * msg.angle_increment
                 angle_degree = math.degrees(angle_radian) % 360
+                self.get_logger().warn(f"⚠️ Obstacle Found: {angle_degree:.2f}° ➡ STOP sent!")
                 
-                # แสดงข้อมูลใน Terminal
-                self.get_logger().warn(
-                    f"⚠️ Obstacle Found : {angle_degree:.2f}° Range : {distance:.2f} m. ➡ STOP sent!"
-                )
-                
-                # order to service_node stop the robot
-                msg = String()
-                msg.data = "stop"
-                self.publisher.publish(msg)
-                break  # stop loop cause nearly to obstacle
+                # ส่งคำสั่ง "stop" ไปที่ /robot_command
+                stop_msg = String()
+                stop_msg.data = "stop"
+                self.publisher.publish(stop_msg)
+                obstacle_detected = True
+                break  # ออกจาก loop ทันทีที่พบวัตถุ
+
+        # ถ้าไม่มีสิ่งกีดขวางและก่อนหน้านี้เคยตรวจพบ ส่งสัญญาณให้เคลื่อนที่ต่อ
+        if not obstacle_detected and self.obstacle_detected:
+            self.get_logger().info("✅ No obstacle detected, resuming movement.")
+            resume_msg = String()
+            resume_msg.data = "move"
+            self.publisher.publish(resume_msg)
+
+        # อัปเดตสถานะ
+        self.obstacle_detected = obstacle_detected
 
 def main():
     rclpy.init()

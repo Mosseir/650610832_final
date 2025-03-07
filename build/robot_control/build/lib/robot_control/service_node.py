@@ -34,13 +34,10 @@ class ServiceNode(Node):
     def command_callback(self, msg):
         """ รับคำสั่งจาก server_node และควบคุมหุ่นยนต์ """
         if msg.data == "stop":
-            self.get_logger().warn("❌ STOP command received! Sending [0.00, 0.00] continuously.")
-            self.stop_robot = True  # stop LiDAR progression
-            
-            # Sending stop value
-            self.twist.linear.x = 0.0
-            self.twist.angular.z = 0.0
-            self.cmd_vel_pub.publish(self.twist)
+            self.get_logger().warn("❌ STOP command received! Sending [0.00, 0.00].")
+            self.stop_robot = True  # Stop robot temporarily
+        else:
+            self.stop_robot = False  # Resume robot movement
 
     def rp_lidar_callback(self, msg):
         """ ใช้ LiDAR ควบคุมหุ่นยนต์ (แต่จะไม่ทำงานถ้าได้รับคำสั่งหยุด) """

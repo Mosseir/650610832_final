@@ -1,0 +1,24 @@
+[0.346s] Invoking command in '/home/ubuntu/650610832_final/src/robot_control': PYTHONPATH=/home/ubuntu/650610832_final/build/robot_control/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ubuntu/650610832_final/install/robot_control/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/robot_control build --build-base /home/ubuntu/650610832_final/build/robot_control/build install --record /home/ubuntu/650610832_final/build/robot_control/install.log --single-version-externally-managed install_data
+[0.479s] running egg_info
+[0.479s] writing ../../build/robot_control/robot_control.egg-info/PKG-INFO
+[0.480s] writing dependency_links to ../../build/robot_control/robot_control.egg-info/dependency_links.txt
+[0.480s] writing entry points to ../../build/robot_control/robot_control.egg-info/entry_points.txt
+[0.480s] writing requirements to ../../build/robot_control/robot_control.egg-info/requires.txt
+[0.480s] writing top-level names to ../../build/robot_control/robot_control.egg-info/top_level.txt
+[0.481s] reading manifest file '../../build/robot_control/robot_control.egg-info/SOURCES.txt'
+[0.481s] writing manifest file '../../build/robot_control/robot_control.egg-info/SOURCES.txt'
+[0.481s] running build
+[0.481s] running build_py
+[0.482s] running install
+[0.482s] running install_lib
+[0.483s] running install_data
+[0.483s] creating /home/ubuntu/650610832_final/install/robot_control/share/robot_control/launch
+[0.483s] copying launch/robot_control_launch.py -> /home/ubuntu/650610832_final/install/robot_control/share/robot_control/launch
+[0.483s] running install_egg_info
+[0.484s] removing '/home/ubuntu/650610832_final/install/robot_control/lib/python3.10/site-packages/robot_control-0.0.0-py3.10.egg-info' (and everything under it)
+[0.484s] Copying ../../build/robot_control/robot_control.egg-info to /home/ubuntu/650610832_final/install/robot_control/lib/python3.10/site-packages/robot_control-0.0.0-py3.10.egg-info
+[0.485s] running install_scripts
+[0.497s] Installing server_node script to /home/ubuntu/650610832_final/install/robot_control/lib/robot_control
+[0.497s] Installing service_node script to /home/ubuntu/650610832_final/install/robot_control/lib/robot_control
+[0.497s] writing list of installed files to '/home/ubuntu/650610832_final/build/robot_control/install.log'
+[0.512s] Invoked command in '/home/ubuntu/650610832_final/src/robot_control' returned '0': PYTHONPATH=/home/ubuntu/650610832_final/build/robot_control/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/ubuntu/650610832_final/install/robot_control/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/robot_control build --build-base /home/ubuntu/650610832_final/build/robot_control/build install --record /home/ubuntu/650610832_final/build/robot_control/install.log --single-version-externally-managed install_data
