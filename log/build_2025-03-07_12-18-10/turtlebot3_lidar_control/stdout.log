@@ -1,0 +1,25 @@
+running develop
+running egg_info
+creating src/turtlebot3_lidar_control.egg-info
+writing src/turtlebot3_lidar_control.egg-info/PKG-INFO
+writing dependency_links to src/turtlebot3_lidar_control.egg-info/dependency_links.txt
+writing entry points to src/turtlebot3_lidar_control.egg-info/entry_points.txt
+writing requirements to src/turtlebot3_lidar_control.egg-info/requires.txt
+writing top-level names to src/turtlebot3_lidar_control.egg-info/top_level.txt
+writing manifest file 'src/turtlebot3_lidar_control.egg-info/SOURCES.txt'
+reading manifest file 'src/turtlebot3_lidar_control.egg-info/SOURCES.txt'
+writing manifest file 'src/turtlebot3_lidar_control.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/ubuntu/650610832_final/install/turtlebot3_lidar_control/lib/python3.10/site-packages/turtlebot3-lidar-control.egg-link (link to src)
+Installing server_node script to /home/ubuntu/650610832_final/install/turtlebot3_lidar_control/lib/turtlebot3_lidar_control
+Installing service_node script to /home/ubuntu/650610832_final/install/turtlebot3_lidar_control/lib/turtlebot3_lidar_control
+
+Installed /home/ubuntu/650610832_final/build/turtlebot3_lidar_control/src
+running symlink_data
+creating /home/ubuntu/650610832_final/install/turtlebot3_lidar_control/share/ament_index
+creating /home/ubuntu/650610832_final/install/turtlebot3_lidar_control/share/ament_index/resource_index
+creating /home/ubuntu/650610832_final/install/turtlebot3_lidar_control/share/ament_index/resource_index/packages
+symbolically linking /home/ubuntu/650610832_final/build/turtlebot3_lidar_control/resource/turtlebot3_lidar_control -> /home/ubuntu/650610832_final/install/turtlebot3_lidar_control/share/ament_index/resource_index/packages
+symbolically linking /home/ubuntu/650610832_final/build/turtlebot3_lidar_control/package.xml -> /home/ubuntu/650610832_final/install/turtlebot3_lidar_control/share/turtlebot3_lidar_control
+creating /home/ubuntu/650610832_final/install/turtlebot3_lidar_control/share/turtlebot3_lidar_control/srv
+symbolically linking /home/ubuntu/650610832_final/build/turtlebot3_lidar_control/srv/StopWithObstacle.srv -> /home/ubuntu/650610832_final/install/turtlebot3_lidar_control/share/turtlebot3_lidar_control/srv

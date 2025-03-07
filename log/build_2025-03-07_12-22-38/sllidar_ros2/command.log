@@ -1,0 +1,1 @@
+Invoking command in '/home/ubuntu/650610832_final/build/sllidar_ros2': CMAKE_PREFIX_PATH=/home/ubuntu/650610832_final/install/turtlebot3_lidar_control:/opt/ros/humble /usr/bin/cmake /home/ubuntu/650610832_final/src/sllidar_ros2 -DCMAKE_INSTALL_PREFIX=/home/ubuntu/650610832_final/install/sllidar_ros2

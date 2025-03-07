@@ -1,0 +1,4 @@
+[console_scripts]
+server_node = robot_control.server_node:main
+service_node = robot_control.service_node:main
+

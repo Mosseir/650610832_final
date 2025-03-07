@@ -1,0 +1,4 @@
+[console_scripts]
+server_node = turtlebot3_lidar_control.server_node:main
+service_node = turtlebot3_lidar_control.service_node:main
+

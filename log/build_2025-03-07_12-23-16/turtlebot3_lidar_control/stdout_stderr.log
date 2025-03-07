@@ -1,0 +1,9 @@
+running develop
+Removing /home/ubuntu/650610832_final/install/turtlebot3_lidar_control/lib/python3.10/site-packages/turtlebot3-lidar-control.egg-link (link to src)
+running egg_info
+writing ../../build/turtlebot3_lidar_control/turtlebot3_lidar_control.egg-info/PKG-INFO
+writing dependency_links to ../../build/turtlebot3_lidar_control/turtlebot3_lidar_control.egg-info/dependency_links.txt
+writing entry points to ../../build/turtlebot3_lidar_control/turtlebot3_lidar_control.egg-info/entry_points.txt
+writing requirements to ../../build/turtlebot3_lidar_control/turtlebot3_lidar_control.egg-info/requires.txt
+writing top-level names to ../../build/turtlebot3_lidar_control/turtlebot3_lidar_control.egg-info/top_level.txt
+error: package directory 'src/turtlebot3_lidar_control' does not exist
