@@ -1,0 +1,1 @@
+/home/ubuntu/650610832_final/src/sllidar_ros2/launch/sllidar_s2_launch.py
